@@ -1,7 +1,9 @@
 - hosts: all
-  become: yes
   gather_facts: yes
   tasks:
-  - name: Print Cool System Uptimes
+  - name: Print Cool System Uptimes (System Agnostic)
     debug:
-      msg: Uptime in Human Form - {{ now() - now().fromtimestamp(now(fmt='%s') | int - ansible_uptime_seconds) }}
+      msg:
+      - "System Uptime - {{ now() - now().fromtimestamp(now(fmt='%s') | int - ansible_uptime_seconds) }}"
+      - "Date the system booted - {{ now().fromtimestamp(now(fmt='%s') | int - ansible_uptime_seconds) }}"
+      - "Date the system booted (seconds) - {{ now(fmt='%s') | int - ansible_uptime_seconds }}"
